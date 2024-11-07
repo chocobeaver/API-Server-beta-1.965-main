@@ -26,7 +26,7 @@ async function Init_UI() {
         width: $("#sample").outerWidth(),
         height: $("#sample").outerHeight()
     };
-    pageManager = new PageManager('scrollPanel', 'itemsPanel', itemLayout, renderBookmarks);
+    pageManager = new PageManager('scrollPanel', 'itemsPanel', itemLayout, renderPosts);
     compileCategories();
     $('#createPost').on("click", async function () {
         renderCreatePostForm();
