@@ -58,7 +58,7 @@ function hideBookmarks() {
 function start_Periodic_Refresh() {
     setInterval(async () => {
         if (!hold_Periodic_Refresh) {
-            let etag = await Bookmarks_API.HEAD();
+            let etag = await Post_API.HEAD();
             if (currentETag != etag) {
                 currentETag = etag;
                 await pageManager.update(false);
@@ -115,8 +115,8 @@ function updateDropDownMenu() {
 }
 async function compileCategories() {
     categories = [];
-    let response = await Bookmarks_API.GetQuery("?fields=category&sort=category");
-    if (!Bookmarks_API.error) {
+    let response = await Post_API.GetQuery("?fields=category&sort=category");
+    if (!Post_API.error) {
         let items = response.data;
         if (items != null) {
             items.forEach(item => {
@@ -132,8 +132,8 @@ async function renderBookmarks(queryString) {
     queryString += "&sort=category";
     if (selectedCategory != "") queryString += "&category=" + selectedCategory;
     addWaitingGif();
-    let response = await Bookmarks_API.Get(queryString);
-    if (!Bookmarks_API.error) {
+    let response = await Post_API.Get(queryString);
+    if (!Post_API.error) {
         currentETag = response.ETag;
         let Bookmarks = response.data;
         if (Bookmarks.length > 0) {
@@ -151,7 +151,7 @@ async function renderBookmarks(queryString) {
         } else
             endOfData = true;
     } else {
-        renderError(Bookmarks_API.currentHttpError);
+        renderError(Post_API.currentHttpError);
     }
     removeWaitingGif();
     return endOfData;
@@ -168,15 +168,15 @@ function renderCreateBookmarkForm() {
 }
 async function renderEditBookmarkForm(id) {
     addWaitingGif();
-    let response = await Bookmarks_API.Get(id)
-    if (!Bookmarks_API.error) {
+    let response = await Post_API.Get(id)
+    if (!Post_API.error) {
         let Bookmark = response.data;
         if (Bookmark !== null)
             renderBookmarkForm(Bookmark);
         else
             renderError("Bookmark introuvable!");
     } else {
-        renderError(Bookmarks_API.currentHttpError);
+        renderError(Post_API.currentHttpError);
     }
     removeWaitingGif();
 }
@@ -185,8 +185,8 @@ async function renderDeleteBookmarkForm(id) {
     $("#actionTitle").text("Retrait");
     $('#bookmarkForm').show();
     $('#bookmarkForm').empty();
-    let response = await Bookmarks_API.Get(id)
-    if (!Bookmarks_API.error) {
+    let response = await Post_API.Get(id)
+    if (!Post_API.error) {
         let Bookmark = response.data;
         let favicon = makeFavicon(Bookmark.Url);
         if (Bookmark !== null) {
@@ -215,14 +215,14 @@ async function renderDeleteBookmarkForm(id) {
         </div>    
         `);
             $('#deleteBookmark').on("click", async function () {
-                await Bookmarks_API.Delete(Bookmark.Id);
-                if (!Bookmarks_API.error) {
+                await Post_API.Delete(Bookmark.Id);
+                if (!Post_API.error) {
                     showBookmarks();
                     await pageManager.update(false);
                     compileCategories();
                 }
                 else {
-                    console.log(Bookmarks_API.currentHttpError)
+                    console.log(Post_API.currentHttpError)
                     renderError("Une erreur est survenue!");
                 }
             });
@@ -234,7 +234,7 @@ async function renderDeleteBookmarkForm(id) {
             renderError("Bookmark introuvable!");
         }
     } else
-        renderError(Bookmarks_API.currentHttpError);
+        renderError(Post_API.currentHttpError);
 }
 function getFormData($form) {
     const removeTag = new RegExp("(<[a-zA-Z0-9]+>)|(</[a-zA-Z0-9]+>)", "g");
@@ -313,8 +313,8 @@ function renderBookmarkForm(Bookmark = null) {
     $('#BookmarkForm').on("submit", async function (event) {
         event.preventDefault();
         let Bookmark = getFormData($("#BookmarkForm"));
-        Bookmark = await Bookmarks_API.Save(Bookmark, create);
-        if (!Bookmarks_API.error) {
+        Bookmark = await Post_API.Save(Bookmark, create);
+        if (!Post_API.error) {
             showBookmarks();
             await pageManager.update(false);
             compileCategories();
