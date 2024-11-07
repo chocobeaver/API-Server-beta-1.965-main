@@ -1,11 +1,11 @@
 
-.BookmarkRow {
+.PostRow {
     padding: 8px;
     padding-bottom: 0px;
    /* scroll-snap-align: start;*/
 }
 
-.BookmarkContainer {
+.PostContainer {
     display: grid;
     grid-template-columns: 4fr 1fr;
     align-items: top;
@@ -13,15 +13,15 @@
     border-radius: 6px;
 }
 
-.BookmarkContainer .cmdIcon {
+.PostContainer .cmdIcon {
     display: none;
 }
 
-.BookmarkContainer:hover .cmdIcon {
+.PostContainer:hover .cmdIcon {
     display: block;
 }
 
-.BookmarkLayout {
+.PostLayout {
     display: grid;
     grid-template-columns: 1fr;
     padding: 10px;
@@ -29,28 +29,28 @@
     align-items: center;
 }
 
-.Bookmark {
+.Post {
     display: grid;
     grid-template-columns: 30px auto;
 }
 
-.BookmarkTitle {
+.PostTitle {
     font-size: 1.1rem;
     font-weight: bold;
     color: black;
 }
 
-.BookmarkCategory {
+.PostCategory {
     color: dodgerblue !important;
 }
 
-.BookmarkCommandPanel {
+.PostCommandPanel {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     gap: 8px;
 }
 
-.BookmarkdeleteForm {
+.PostdeleteForm {
     margin: 20px;
 }
