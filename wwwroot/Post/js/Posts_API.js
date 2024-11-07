@@ -1,5 +1,5 @@
 
-class Post_API {
+class Posts_API {
     static API_URL() { return "http://localhost:5000/api/posts" };
     static initHttpState() {
         this.currentHttpError = "";
