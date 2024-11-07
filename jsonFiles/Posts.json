@@ -1,12 +1,10 @@
 [
 
     {
-        "Id": 1,
-        "Title": "Mon Premier Post",
-        "Text": "Ceci est un exemple de texte pour le post.",
-        "Category": "Inspiration",
-        "Image": "mon_image.jpg",
-        "Creation": 1699455600
+        "Id": 16,
+        "Title": "Collège de Maisonneuves",
+        "Url": "https://www.cmaisonneuve.qc.ca/",
+        "Category": "Cegep"
     }
 
 
