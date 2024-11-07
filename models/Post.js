@@ -13,5 +13,5 @@ export default class Post extends Model {
         this.setKey("Id");
     }
 
-    
+    //
 }
