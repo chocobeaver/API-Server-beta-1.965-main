@@ -189,7 +189,11 @@ async function renderDeletePostForm(id) {
     let response = await Posts_API.Get(id)
     if (!Posts_API.error) {
         let Post = response.data;
-     
+        const timestamp = Post.Creation;
+    const date = new Date(timestamp); // Convertit le timestamp en objet Date
+
+    // Format de la date, par exemple : "YYYY-MM-DD"
+    const formattedDate = date.toISOString().split('T')[0];
         if (Post !== null) {
             $("#postForm").append(`
         <div class="PostdeleteForm">
@@ -213,7 +217,7 @@ async function renderDeletePostForm(id) {
                                 </p>
                                 
                                 <!-- Champ de création -->
-                                <span class="PostCreation">Creation Date: <span data-creation="timestamp">2024-01-01</span></span>
+                                <span class="PostCreation">Creation Date: <span data-creation="timestamp">${formattedDate}</span></span>
                             </div>
                     <div class="PostCommandPanel">
                         <span class="editCmd cmdIcon fa fa-pencil" editPostId="${Post.Id}" title="Modifier ${Post.Title}"></span>
@@ -343,7 +347,11 @@ function makeFavicon(url, big = false) {
     return `<div class="${faviconClass}" style="background-image: url('${url}');"></div>`;
 }
 function renderPost(Post) {
-    
+    const timestamp = Post.Creation;
+    const date = new Date(timestamp); // Convertit le timestamp en objet Date
+
+    // Format de la date, par exemple : "YYYY-MM-DD"
+    const formattedDate = date.toISOString().split('T')[0];
     return $(`
      <div class="PostRow" id='${Post.Id}'>
         <div class="PostContainer noselect">
@@ -363,7 +371,7 @@ function renderPost(Post) {
                                 </p>
                                 
                                 <!-- Champ de création -->
-                                <span class="PostCreation">Creation Date: <span data-creation="timestamp">2024-01-01</span></span>
+                                <span class="PostCreation">Creation Date: <span data-creation="timestamp">${formattedDate}</span></span>
                             </div>
                             <div class="PostCommandPanel">
                                 <span class="editCmd cmdIcon fa fa-pencil" editPostId="${Post.Id}"
