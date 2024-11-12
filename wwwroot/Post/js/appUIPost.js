@@ -272,7 +272,6 @@ function newPost() {
     return Post;
 }
 function renderPostForm(Post = null) {
-    
     hidePosts();
     let create = Post == null;
  
@@ -285,36 +284,44 @@ function renderPostForm(Post = null) {
     $("#postForm").empty();
     $("#postForm").append(`
         <form class="form" id="PostForm">
-            <div class="PostRow" id="sample">
-                        <div class="PostContainer noselect">
-                            <div class="PostLayout">
-                                <span class="PostCategory">Test</span>
-                                <div class="Post">
-                                    <p>---</p>
-                                    <!-- Lien avec titre du post -->
-                                    <!-- <a href="" target="_blank" class="PostLink">sample</a> -->
-                                    <span class="PostTitle">Un titre bien simple de Test</span>
-                                </div>
-                                <!-- Champ d'image -->
-                                <div class="PostImage">
-                                    <img src="sample.jpg" alt="Sample Image" />
-                                </div>
-                                <p class="PostText">Bonjour chocolat miam miam allo la police hsdgjsadsjdhajdskjda hihii
-                                    asjdasdjasdjsabdjasda
-                                      asjdasd
-                                </p>
-                                
-                                <!-- Champ de création -->
-                                <span class="PostCreation">Creation Date: <span data-creation="timestamp">2024-01-01</span></span>
-                            </div>
-                            <div class="PostCommandPanel">
-                                <span class="editCmd cmdIcon fa fa-pencil" editPostId="${Post.Id}"
-                                    title="Modifier ${Post.Title}"></span>
-                                <span class="deleteCmd cmdIcon fa fa-trash" deletePostId="${Post.Id}"
-                                    title="Effacer ${Post.Title}"></span>
-                            </div>
-                        </div>
-                    </div>
+            <br>
+            <input type="hidden" name="Id" value="${Post.Id}"/>
+            <label for="Category" class="form-label">Catégorie </label>
+            <input 
+                class="form-control"
+                name="Category"
+                id="Category"
+                placeholder="Catégorie"
+                required
+                value="${Post.Category}"
+            />
+            <br>
+            <label for="Title" class="form-label">Titre </label>
+            <input 
+                class="form-control Alpha"
+                name="Title" 
+                id="Title" 
+                placeholder="Titre"
+                required
+                RequireMessage="Veuillez entrer un titre"
+                InvalidMessage="Le titre comporte un caractère illégal"
+                value="${Post.Title}"
+            />
+            <label for="Texte" class="form-label">Texte </label>
+            <input 
+                class="form-control Alpha"
+                name="Text" 
+                id="Text" 
+                placeholder="Text"
+                required
+                RequireMessage="Veuillez entrer un Texte"
+                InvalidMessage="Le Texte comporte un caractère illégal"
+                value="${Post.Text}"
+            />
+
+            
+            <input type="submit" value="Enregistrer" id="savePost" class="btn btn-primary">
+            <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
         </form>
     `);
     initFormValidation();
