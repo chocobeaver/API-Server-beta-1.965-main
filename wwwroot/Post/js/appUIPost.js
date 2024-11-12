@@ -342,9 +342,9 @@ function renderPost(Post) {
                                 </div>
                                 <!-- Champ d'image -->
                                 <div class="PostImage">
-                                    <img src="sample.jpg" alt="Sample Image" />
+                                    <img src=${Post.Image} alt="asa"/>
                                 </div>
-                                <p class="PostText">${Post.text}
+                                <p class="PostText">${Post.Text}
                                 </p>
                                 
                                 <!-- Champ de création -->
