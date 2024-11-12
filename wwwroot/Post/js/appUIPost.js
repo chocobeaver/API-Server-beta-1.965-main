@@ -253,14 +253,14 @@ function newPost() {
     return Post;
 }
 function renderPostForm(Post = null) {
-    console.log("AAAAAAAAAAAAAAA");
+    
     hidePosts();
     let create = Post == null;
-    let favicon = `<div class="big-favicon"></div>`;
+ 
     if (create)
         Post = newPost();
     else
-        favicon = makeFavicon(Post.Url, true);
+       
     $("#actionTitle").text(create ? "Création" : "Modification");
     $("#postForm").show();
     $("#postForm").empty();
@@ -299,12 +299,7 @@ function renderPostForm(Post = null) {
         </form>
     `);
     initFormValidation();
-    $("#Url").on("change", function () {
-        let favicon = makeFavicon($("#Url").val(), true);
-        $("#faviconLink").empty();
-        $("#faviconLink").attr("href", $("#Url").val());
-        $("#faviconLink").append(favicon);
-    })
+   
     $('#PostForm').on("submit", async function (event) {
         event.preventDefault();
         let Post = getFormData($("#PostForm"));
@@ -333,13 +328,13 @@ function makeFavicon(url, big = false) {
     return `<div class="${faviconClass}" style="background-image: url('${url}');"></div>`;
 }
 function renderPost(Post) {
-    let favicon = makeFavicon(Post.Url);
+    
     return $(`
      <div class="PostRow" id='${Post.Id}'>
         <div class="PostContainer noselect">
             <div class="PostLayout">
                 <div class="Post">
-                    <a href="${Post.Url}" target="_blank"> ${favicon} </a>
+                   
                     <span class="PostTitle">${Post.Title}</span>
                 </div>
                 <span class="PostCategory">${Post.Category}</span>
