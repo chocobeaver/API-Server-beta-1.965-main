@@ -1,7 +1,7 @@
 [
 
     {
-        "Id": 1,
+        "Id": "1",
         "Title": "Mon Premier Post",
         "Text": "Ceci est un exemple de texte pour le post.",
         "Category": "Inspiration",
