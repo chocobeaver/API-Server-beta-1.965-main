@@ -314,7 +314,7 @@ function renderPostForm(Post = null) {
                 class="form-control Alpha"
                 name="Text" 
                 id="Text" 
-                placeholder="Text"
+                placeholder="allo entrer un texte"
                 required
                 RequireMessage="Veuillez entrer un Texte"
                 InvalidMessage="Le Texte comporte un caractère illégal"
@@ -328,7 +328,6 @@ function renderPostForm(Post = null) {
                    imageSrc='${Post.Image}' 
                    waitingImage="Loading_icon.gif">
             </div>
-            
             <input type="submit" value="Enregistrer" id="savePost" class="btn btn-primary">
             <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
         </form>
