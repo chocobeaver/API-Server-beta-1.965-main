@@ -329,6 +329,7 @@ function renderPostForm(Post = null) {
                    imageSrc='${Post.Image}' 
                    waitingImage="Loading_icon.gif">
             </div>
+            <input type="hidden"  name="Creation"  id="Creation"  value="${Post.Creation}"/>
             <input type="submit" value="Enregistrer" id="savePost" class="btn btn-primary">
             <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
         </form>
