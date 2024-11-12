@@ -267,8 +267,9 @@ function newPost() {
     Post = {};
     Post.Id = 0;
     Post.Title = "";
-    Post.Url = "";
+    Post.Text = "";
     Post.Category = "";
+    Post.Creation = new Date();
     return Post;
 }
 function renderPostForm(Post = null) {
