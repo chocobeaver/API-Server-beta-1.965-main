@@ -280,10 +280,18 @@ function renderPostForm(Post = null) {
     $("#postForm").empty();
     $("#postForm").append(`
         <form class="form" id="PostForm">
-            <a href="${Post.Url}" target="_blank" id="faviconLink" class="big-favicon" > ${favicon} </a>
             <br>
             <input type="hidden" name="Id" value="${Post.Id}"/>
-
+            <label for="Category" class="form-label">Catégorie </label>
+            <input 
+                class="form-control"
+                name="Category"
+                id="Category"
+                placeholder="Catégorie"
+                required
+                value="${Post.Category}"
+            />
+            <br>
             <label for="Title" class="form-label">Titre </label>
             <input 
                 class="form-control Alpha"
@@ -295,25 +303,19 @@ function renderPostForm(Post = null) {
                 InvalidMessage="Le titre comporte un caractère illégal"
                 value="${Post.Title}"
             />
-            <label for="Url" class="form-label">Url </label>
-            <input
-                class="form-control URL"
-                name="Url"
-                id="Url"
-                placeholder="Url"
-                required
-                value="${Post.Url}" 
-            />
-            <label for="Category" class="form-label">Catégorie </label>
+            <label for="Texte" class="form-label">Texte </label>
             <input 
-                class="form-control"
-                name="Category"
-                id="Category"
-                placeholder="Catégorie"
+                class="form-control Alpha"
+                name="Text" 
+                id="Text" 
+                placeholder="Text"
                 required
-                value="${Post.Category}"
+                RequireMessage="Veuillez entrer un Texte"
+                InvalidMessage="Le Texte comporte un caractère illégal"
+                value="${Post.Text}"
             />
-            <br>
+
+            
             <input type="submit" value="Enregistrer" id="savePost" class="btn btn-primary">
             <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
         </form>
