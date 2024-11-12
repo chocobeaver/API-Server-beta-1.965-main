@@ -275,11 +275,13 @@ function renderPostForm(Post = null) {
     hidePosts();
     let create = Post == null;
  
-    if (create)
+    if (create){
         Post = newPost();
-    else
+    }
+
        
     $("#actionTitle").text(create ? "Création" : "Modification");
+    
     $("#postForm").show();
     $("#postForm").empty();
     $("#postForm").append(`
@@ -318,12 +320,20 @@ function renderPostForm(Post = null) {
                 InvalidMessage="Le Texte comporte un caractère illégal"
                 value="${Post.Text}"
             />
-
+             <!-- nécessite le fichier javascript 'imageControl.js' -->
+            <label class="form-label">Image </label>
+            <div   class='imageUploader' 
+                   newImage='${create}' 
+                   controlId='Image' 
+                   imageSrc='${Post.Image}' 
+                   waitingImage="Loading_icon.gif">
+            </div>
             
             <input type="submit" value="Enregistrer" id="savePost" class="btn btn-primary">
             <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
         </form>
     `);
+    initImageUploaders();
     initFormValidation();
    
     $('#PostForm').on("submit", async function (event) {
