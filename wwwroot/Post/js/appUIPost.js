@@ -332,18 +332,31 @@ function renderPost(Post) {
     return $(`
      <div class="PostRow" id='${Post.Id}'>
         <div class="PostContainer noselect">
-            <div class="PostLayout">
-                <div class="Post">
-                   
-                    <span class="PostTitle">${Post.Title}</span>
-                </div>
-                <span class="PostCategory">${Post.Category}</span>
-            </div>
-            <div class="PostCommandPanel">
-                <span class="editCmd cmdIcon fa fa-pencil" editPostId="${Post.Id}" title="Modifier ${Post.Title}"></span>
-                <span class="deleteCmd cmdIcon fa fa-trash" deletePostId="${Post.Id}" title="Effacer ${Post.Title}"></span>
-            </div>
-        </div>
+                            <div class="PostLayout">
+                                <span class="PostCategory">${Post.Category}</span>
+                                <div class="Post">
+                                    <p>---</p>
+                                    <!-- Lien avec titre du post -->
+                                    <!-- <a href="" target="_blank" class="PostLink">sample</a> -->
+                                    <span class="PostTitle">${Post.Title}</span>
+                                </div>
+                                <!-- Champ d'image -->
+                                <div class="PostImage">
+                                    <img src="sample.jpg" alt="Sample Image" />
+                                </div>
+                                <p class="PostText">${Post.text}
+                                </p>
+                                
+                                <!-- Champ de création -->
+                                <span class="PostCreation">Creation Date: <span data-creation="timestamp">2024-01-01</span></span>
+                            </div>
+                            <div class="PostCommandPanel">
+                                <span class="editCmd cmdIcon fa fa-pencil" editPostId="${Post.Id}"
+                                    title="Modifier ${Post.Title}"></span>
+                                <span class="deleteCmd cmdIcon fa fa-trash" deletePostId="${Post.Id}"
+                                    title="Effacer ${Post.Title}"></span>
+                            </div>
+                        </div>
     </div>           
     `);
 }
