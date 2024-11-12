@@ -181,6 +181,7 @@ async function renderEditPostForm(id) {
     removeWaitingGif();
 }
 async function renderDeletePostForm(id) {
+   
     hidePosts();
     $("#actionTitle").text("Retrait");
     $('#postForm').show();
@@ -188,7 +189,7 @@ async function renderDeletePostForm(id) {
     let response = await Posts_API.Get(id)
     if (!Posts_API.error) {
         let Post = response.data;
-        let favicon = makeFavicon(Post.Url);
+     
         if (Post !== null) {
             $("#postForm").append(`
         <div class="PostdeleteForm">
@@ -197,12 +198,23 @@ async function renderDeletePostForm(id) {
             <div class="PostRow" id=${Post.Id}">
                 <div class="PostContainer noselect">
                     <div class="PostLayout">
-                        <div class="Post">
-                            <a href="${Post.Url}" target="_blank"> ${favicon} </a>
-                            <span class="PostTitle">${Post.Title}</span>
-                        </div>
-                        <span class="PostCategory">${Post.Category}</span>
-                    </div>
+                                <span class="PostCategory">${Post.Category}</span>
+                                <div class="Post">
+                                    <p>---</p>
+                                    <!-- Lien avec titre du post -->
+                                    <!-- <a href="" target="_blank" class="PostLink">sample</a> -->
+                                    <span class="PostTitle">${Post.Title}</span>
+                                </div>
+                                <!-- Champ d'image -->
+                                <div class="PostImage">
+                                    <img src=${Post.Image} alt="asa"/>
+                                </div>
+                                <p class="PostText">${Post.Text}
+                                </p>
+                                
+                                <!-- Champ de création -->
+                                <span class="PostCreation">Creation Date: <span data-creation="timestamp">2024-01-01</span></span>
+                            </div>
                     <div class="PostCommandPanel">
                         <span class="editCmd cmdIcon fa fa-pencil" editPostId="${Post.Id}" title="Modifier ${Post.Title}"></span>
                         <span class="deleteCmd cmdIcon fa fa-trash" deletePostId="${Post.Id}" title="Effacer ${Post.Title}"></span>
@@ -233,8 +245,11 @@ async function renderDeletePostForm(id) {
         } else {
             renderError("Post introuvable!");
         }
-    } else
+    } else{
+        console.log("alloDelet")
         renderError(Posts_API.currentHttpError);
+    }
+       
 }
 function getFormData($form) {
     const removeTag = new RegExp("(<[a-zA-Z0-9]+>)|(</[a-zA-Z0-9]+>)", "g");
