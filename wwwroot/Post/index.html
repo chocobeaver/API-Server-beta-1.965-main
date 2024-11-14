@@ -102,6 +102,21 @@
     <script src="js/validation.js"></script>
     <script src="js/appUIPost.js"></script>
     <script src="js/imageControl.js"></script>
+    <script>
+       document.getElementById('show-more').addEventListener('click', function() {
+    var textElement = document.getElementById('post-text');
+    var showMoreButton = document.getElementById('show-more');
+
+    // Toggle between truncated and full text
+    if (textElement.classList.contains('expanded')) {
+        textElement.classList.remove('expanded');
+        showMoreButton.textContent = 'Voir plus'; // Change button text to "See More"
+    } else {
+        textElement.classList.add('expanded');
+        showMoreButton.textContent = 'Voir moins'; // Change button text to "See Less"
+    }
+});
+    </script>
 
 </body>
 

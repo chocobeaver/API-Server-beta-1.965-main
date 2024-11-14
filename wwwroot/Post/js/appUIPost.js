@@ -211,7 +211,7 @@ async function renderDeletePostForm(id) {
                                 </div>
                                 <!-- Champ d'image -->
                                 <div class="PostImage">
-                                    <img src=${Post.Image} alt="asa"/>
+                                    <img class="Post-image" src=${Post.Image} alt="asa"/>
                                 </div>
                                 <p class="PostText">${Post.Text}
                                 </p>
@@ -376,17 +376,19 @@ function renderPost(Post) {
                             <div class="PostLayout">
                                 <span class="PostCategory">${Post.Category}</span>
                                 <div class="Post">
-                                    <p>---</p>
-                                    <!-- Lien avec titre du post -->
-                                    <!-- <a href="" target="_blank" class="PostLink">sample</a> -->
                                     <span class="PostTitle">${Post.Title}</span>
                                 </div>
                                 <!-- Champ d'image -->
-                                <div class="PostImage">
-                                    <img src=${Post.Image} alt="asa"/>
+                                <div class="test">
+                                    <div class="PostImage">
+                                        <a href="${Post.Image}" target="blank"><img class="Post-image" src=${Post.Image} alt="asa"/></a>
+                                    </div>
+                                </div><div class="test">
+                                <div class="PostText">
+                                    <p id="post-text">${Post.Text}</p>
+                                    <span class="show-more" id="show-more">Voir plus</span>
                                 </div>
-                                <p class="PostText">${Post.Text}
-                                </p>
+                                </div>
                                 
                                 <!-- Champ de création -->
                                 <span class="PostCreation">Creation Date: <span data-creation="timestamp">${formattedDate}</span></span>
