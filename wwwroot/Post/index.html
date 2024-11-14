@@ -51,10 +51,16 @@
                                 <div class="PostImage">
                                     <img src="sample.jpg" alt="Sample Image" />
                                 </div>
-                                <p class="PostText">Bonjour chocolat miam miam allo la police hsdgjsadsjdhajdskjda hihii
-                                    asjdasdjasdjsabdjasda
-                                      asjdasd
-                                </p>
+                                <div class="test">
+                                    <div class="PostRow">
+                                        <div class="PostText" id="post-text">
+                                            <p>allo asdjadhsabdajsdvashdv,asajdhvsadbasmc.absssssssssssssssssssssssssssssssssssssssssssssssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaawwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwweeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrttttttttttttttttttttttttttttttttt
+                                                hihi
+                                            </p>
+                                            <span class="show-more" id="show-more">Voir plus</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 
                                 <!-- Champ de création -->
                                 <span class="PostCreation">Creation Date: <span data-creation="timestamp">2024-01-01</span></span>
@@ -102,22 +108,6 @@
     <script src="js/validation.js"></script>
     <script src="js/appUIPost.js"></script>
     <script src="js/imageControl.js"></script>
-    <script>
-       document.getElementById('show-more').addEventListener('click', function() {
-    var textElement = document.getElementById('post-text');
-    var showMoreButton = document.getElementById('show-more');
-
-    // Toggle between truncated and full text
-    if (textElement.classList.contains('expanded')) {
-        textElement.classList.remove('expanded');
-        showMoreButton.textContent = 'Voir plus'; // Change button text to "See More"
-    } else {
-        textElement.classList.add('expanded');
-        showMoreButton.textContent = 'Voir moins'; // Change button text to "See Less"
-    }
-});
-    </script>
-
 </body>
 
 </html>

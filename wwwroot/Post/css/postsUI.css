@@ -42,7 +42,7 @@
     font-weight: bolder;
     color: black;
     text-transform: uppercase;
-    max-width: 100%;
+    max-width: 90%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;  /* Allow title to wrap */
@@ -58,25 +58,39 @@
     white-space: normal;  
     word-break: break-word;
 }
+.PostRow {
+    width: 100%;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
 .PostText {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Affiche 3 lignes de texte */
+    -webkit-line-clamp: 3; /* Limiter à 3 lignes */
     -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: hidden; /* Cacher l'excédent */
+    text-overflow: ellipsis; /* Ajouter des points de suspension (...) */
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     color: #555;
+    transition: all 0.3s ease; /* Transition pour le changement d'état */
 }
 
 .show-more {
+    display: none; /* Masqué par défaut */
     color: dodgerblue;
     cursor: pointer;
     text-decoration: underline;
 }
+
+/* Lorsque le texte est étendu */
 .PostText.expanded {
-    -webkit-line-clamp: unset; /* Shows full text */
+    -webkit-line-clamp: unset; /* Affiche tout le texte */
 }
+
 
 
 .PostCategory {
@@ -125,8 +139,17 @@
     color: #555; 
     letter-spacing: 0.05em; 
 }
-.test{
+.imgWrap{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.test {
+    width: 100%; /* Make sure the parent container is wide enough */
+    max-width: 600px; /* Optional: limit the max width for responsiveness */
+    padding: 16px;
+    box-sizing: border-box;
+}
+.test2 {
+    width: 90%; /* Make sure the parent container is wide enough */
 }

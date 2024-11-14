@@ -379,14 +379,23 @@ function renderPost(Post) {
                                     <span class="PostTitle">${Post.Title}</span>
                                 </div>
                                 <!-- Champ d'image -->
-                                <div class="test">
+                                <div class="imgWrap">
                                     <div class="PostImage">
                                         <a href="${Post.Image}" target="blank"><img class="Post-image" src=${Post.Image} alt="asa"/></a>
                                     </div>
-                                </div><div class="test">
-                                <div class="PostText">
-                                    <p id="post-text">${Post.Text}</p>
-                                    <span class="show-more" id="show-more">Voir plus</span>
+                                </div>
+                                <div class="Post">
+                                <div class="imgWrap">
+                                <div class="test2">
+                                    <div class="test">
+                                        <div class="PostRow">
+                                            <div class="PostText" id="post-text">
+                                                <p>${Post.Text}</p>
+                                                <span class="show-more" id="show-more">Voir plus</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
                                 </div>
                                 </div>
                                 
