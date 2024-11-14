@@ -1,6 +1,7 @@
 const periodicRefreshPeriod = 10;
 let categories = [];
 let selectedCategory = "";
+let WordString ="";
 let currentETag = "";
 let hold_Periodic_Refresh = false;
 let pageManager;
@@ -28,6 +29,9 @@ async function Init_UI() {
     };
     pageManager = new PageManager('scrollPanel', 'itemsPanel', itemLayout, renderPosts);
     compileCategories();
+    $('#researchPost').on("click", async function () {
+        showResearchBar();
+    });
     $('#createPost').on("click", async function () {
         renderCreatePostForm();
     });
@@ -40,12 +44,25 @@ async function Init_UI() {
     showPosts();
     start_Periodic_Refresh();
 }
+function showResearchBar() {
+    if ($('#ResearchBar').is(':visible')) {
+        $('#ResearchBar').hide();
+    } else {
+        $('#ResearchBar').show();
+    }
+}
+function changeResearch() {
+     WordString = document.getElementById("SearchBar").value;
+    console.log("Texte dans la barre de recherche :", WordString);
+    
+}
 function showPosts() {
     $("#actionTitle").text("Liste des favoris");
     $("#scrollPanel").show();
     $('#abort').hide();
     $('#postForm').hide();
     $('#aboutContainer').hide();
+    $('#ResearchBar').hide();
     $("#createPost").show();
     hold_Periodic_Refresh = false;
 }
@@ -131,6 +148,8 @@ async function renderPosts(queryString) {
     let endOfData = false;
     queryString += "&sort=category";
     if (selectedCategory != "") queryString += "&category=" + selectedCategory;
+   // queryString += "&sort=keywords";
+   // if (WordString != "") queryString += "&keywords=" + WordString;
     addWaitingGif();
     let response = await Posts_API.Get(queryString);
     if (!Posts_API.error) {

@@ -19,8 +19,14 @@
     <div id="main">
         <div id="header">
             <img src="post.png" class="appLogo" alt="" title="Gestionnaire de favoris">
-            <h4 id="actionTitle">Liste des favoris</h4>
-            <i class="cmdIcon fa fa-plus" id="createPost" title="Ajouter un favori"></i>
+            <h3 id="actionTitle">Liste des favoris</h3>
+           
+            <div>
+                <i class="cmdIcon fa fa-search" id="researchPost" title="Filtrer par mot les post"></i>
+
+                <i class="cmdIcon fa fa-plus" id="createPost" title="Ajouter un post"></i>
+            </div>
+            
             <i class="cmdIcon fa fa-times" id="abort" title="Annuler"></i>
             <div class="dropdown ms-auto" >
                 <div data-bs-toggle="dropdown" aria-expanded="false">
@@ -32,8 +38,13 @@
                     </div>
                 </div>
             </div>
+            
         </div>
 
+        <div id = ResearchBar>
+            <input type="text" id="SearchBar" class="cmdIcon" placeholder="Entrez votre recherche..." title="bar de filtre">
+            <i class="cmdIcon fa fa-search" id="filtrer" title="Filtrer" onclick="changeResearch()"></i>
+        </div>
         <div id="content">
             <div id="scrollPanel">
                 <div id="itemsPanel">
