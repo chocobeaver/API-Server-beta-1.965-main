@@ -301,7 +301,7 @@ function newPost() {
   Post.Title = "";
   Post.Text = "";
   Post.Category = "";
-  Post.Creation = new Date();
+  Post.Creation = new Date().getTime();;
   return Post;
 }
 function renderPostForm(Post = null) {
@@ -394,8 +394,9 @@ function makeFavicon(url, big = false) {
   return `<div class="${faviconClass}" style="background-image: url('${url}');"></div>`;
 }
 function renderPost(Post) {
+   
   const timestamp = Post.Creation;
-  console.log(timestamp);
+
   const date = new Date(timestamp); // Convertit le timestamp en objet Date
 
   // Format de la date, par exemple : "YYYY-MM-DD"
