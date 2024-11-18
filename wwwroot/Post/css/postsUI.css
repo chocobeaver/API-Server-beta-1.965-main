@@ -63,32 +63,35 @@
     padding: 1%;
     box-sizing: border-box;
 }
-
-.PostText {
+.PostTexte{
     word-wrap: break-word;
     overflow-wrap: break-word;
-    width: 100%;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limiter à 3 lignes */
+    -webkit-line-clamp: 3; 
     -webkit-box-orient: vertical;
-    overflow: hidden; /* Cacher l'excédent */
-    text-overflow: ellipsis; /* Ajouter des points de suspension (...) */
+    font-size: 1.1rem;
+    color: black;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;  
+    word-break: break-word;
+    text-overflow: ellipsis; 
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     color: #555;
-    transition: all 0.3s ease; /* Transition pour le changement d'état */
+    transition: all 0.3s ease; 
 }
 
 .show-more {
-    display: none; /* Masqué par défaut */
+    display: none;
     color: dodgerblue;
     cursor: pointer;
     text-decoration: underline;
 }
 
-/* Lorsque le texte est étendu */
 .PostText.expanded {
-    -webkit-line-clamp: unset; /* Affiche tout le texte */
+    -webkit-line-clamp: unset;
 }
 
 
@@ -113,10 +116,10 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 400px; /* Set a consistent width for all images */
-    height: 300px; /* Set a consistent height */
-    overflow: hidden; /* Hide overflowed parts of the image */
-    border-radius: 6px; /* Optional: Rounded corners */
+    max-width: 400px; 
+    height: 300px; 
+    overflow: hidden; 
+    border-radius: 6px;
 }
 
 .Post-image {
@@ -144,12 +147,4 @@
     justify-content: center;
     align-items: center;
 }
-.test {
-    width: 100%; /* Make sure the parent container is wide enough */
-    max-width: 600px; /* Optional: limit the max width for responsiveness */
-    padding: 16px;
-    box-sizing: border-box;
-}
-.test2 {
-    width: 90%; /* Make sure the parent container is wide enough */
-}
+

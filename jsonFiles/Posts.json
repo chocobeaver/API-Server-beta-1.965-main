@@ -35,14 +35,6 @@
         "Id": "2",
         "Title": "Mon Premier Post",
         "Text": "Ceci est un exemple de texte pour le post.",
-        "Category": "Inspiration",
-        "Image": "5b156ce0-46c0-11ee-9c7d-4dfffb69e19c.png",
-        "Creation": 2699455600000
-    },
-    {
-        "Id": "2",
-        "Title": "Mon Premier Post",
-        "Text": "Ceci est un exemple de texte pour le post.",
         "Category": "Help",
         "Image": "5b156ce0-46c0-11ee-9c7d-4dfffb69e19c.png",
         "Creation": 2699455600000
@@ -66,25 +58,9 @@
     {
         "Id": "2",
         "Title": "Mon Premier Post",
-        "Text": "Ceci est un exemple de texte pour le post.",
+        "Text": "Ceci est un exemple de texte pour le posthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh.",
         "Category": "Jeu Video",
         "Image": "5b156ce0-46c0-11ee-9c7d-4dfffb69e19c.png",
         "Creation": 2699455600000
-    },
-    {
-        "Id": "b1e8c860-a13b-11ef-93f7-1d2a35bcd5f7",
-        "Category": "asd",
-        "Title": "asd",
-        "Text": "asd",
-        "Image": "b1e91680-a13b-11ef-93f7-1d2a35bcd5f7.png",
-        "Creation": null
-    },
-    {
-        "Id": "312c3180-a2a8-11ef-9e68-c1ad9d862677",
-        "Category": "asd",
-        "Title": "asdas",
-        "Text": "dada",
-        "Image": "312c5890-a2a8-11ef-9e68-c1ad9d862677.png",
-        "Creation": null
     }
 ]
