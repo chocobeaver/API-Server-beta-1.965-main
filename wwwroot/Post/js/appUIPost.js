@@ -1,7 +1,7 @@
 const periodicRefreshPeriod = 10;
 let categories = [];
 let selectedCategory = "";
-let WordString ="";
+let WordString = "";
 let currentETag = "";
 let hold_Periodic_Refresh = false;
 let pageManager;
@@ -10,211 +10,227 @@ let itemLayout;
 let waiting = null;
 let waitingGifTrigger = 2000;
 function addWaitingGif() {
-    clearTimeout(waiting);
-    waiting = setTimeout(() => {
-        $("#itemsPanel").append($("<div id='waitingGif' class='waitingGifcontainer'><img class='waitingGif' src='Loading_icon.gif' /></div>'"));
-    }, waitingGifTrigger)
+  clearTimeout(waiting);
+  waiting = setTimeout(() => {
+    $("#itemsPanel").append(
+      $(
+        "<div id='waitingGif' class='waitingGifcontainer'><img class='waitingGif' src='Loading_icon.gif' /></div>'"
+      )
+    );
+  }, waitingGifTrigger);
 }
 function removeWaitingGif() {
-    clearTimeout(waiting);
-    $("#waitingGif").remove();
+  clearTimeout(waiting);
+  $("#waitingGif").remove();
 }
 
 Init_UI();
 
 async function Init_UI() {
-    itemLayout = {
-        width: $("#sample").outerWidth(),
-        height: $("#sample").outerHeight()
-    };
-    pageManager = new PageManager('scrollPanel', 'itemsPanel', itemLayout, renderPosts);
-    compileCategories();
-    $('#researchPost').on("click", async function () {
-        showResearchBar();
-    });
-    $('#createPost').on("click", async function () {
-        renderCreatePostForm();
-    });
-    $('#abort').on("click", async function () {
-        showPosts()
-    });
-    $('#aboutCmd').on("click", function () {
-        renderAbout();
-    });
+  itemLayout = {
+    width: $("#sample").outerWidth(),
+    height: $("#sample").outerHeight(),
+  };
+  pageManager = new PageManager(
+    "scrollPanel",
+    "itemsPanel",
+    itemLayout,
+    renderPosts
+  );
+  compileCategories();
+  $("#researchPost").on("click", async function () {
+    showResearchBar();
+  });
+  $("#createPost").on("click", async function () {
+    renderCreatePostForm();
+  });
+  $("#abort").on("click", async function () {
     showPosts();
-    start_Periodic_Refresh();
+  });
+  $("#aboutCmd").on("click", function () {
+    renderAbout();
+  });
+  showPosts();
+  start_Periodic_Refresh();
 }
 function showResearchBar() {
-    if ($('#ResearchBar').is(':visible')) {
-        $('#ResearchBar').hide();
-    } else {
-        $('#ResearchBar').show();
-    }
+  if ($("#ResearchBar").is(":visible")) {
+    $("#ResearchBar").hide();
+  } else {
+    $("#ResearchBar").show();
+  }
 }
 function changeResearch() {
-     WordString = document.getElementById("SearchBar").value;
-    console.log("Texte dans la barre de recherche :", WordString);
-    
+  WordString = document.getElementById("SearchBar").value;
+  console.log("Texte dans la barre de recherche :", WordString);
+  pageManager.reset();
 }
 function showPosts() {
-    $("#actionTitle").text("Liste des favoris");
-    $("#scrollPanel").show();
-    $('#abort').hide();
-    $('#postForm').hide();
-    $('#aboutContainer').hide();
-    $('#ResearchBar').hide();
-    $("#createPost").show();
-    hold_Periodic_Refresh = false;
+  $("#actionTitle").text("Liste des favoris");
+  $("#scrollPanel").show();
+  $("#abort").hide();
+  $("#postForm").hide();
+  $("#aboutContainer").hide();
+  $("#ResearchBar").hide();
+  $("#createPost").show();
+  hold_Periodic_Refresh = false;
 }
 function hidePosts() {
-    $("#scrollPanel").hide();
-    $("#createPost").hide();
-    $("#abort").show();
-    hold_Periodic_Refresh = true;
+  $("#scrollPanel").hide();
+  $("#createPost").hide();
+  $("#abort").show();
+  hold_Periodic_Refresh = true;
 }
 function start_Periodic_Refresh() {
-    setInterval(async () => {
-        if (!hold_Periodic_Refresh) {
-            let etag = await Posts_API.HEAD();
-            if (currentETag != etag) {
-                currentETag = etag;
-                await pageManager.update(false);
-                compileCategories();
-            }
-        }
-    },
-        periodicRefreshPeriod * 1000);
+  setInterval(async () => {
+    if (!hold_Periodic_Refresh) {
+      let etag = await Posts_API.HEAD();
+      if (currentETag != etag) {
+        currentETag = etag;
+        await pageManager.update(false);
+        compileCategories();
+      }
+    }
+  }, periodicRefreshPeriod * 1000);
 }
 function renderAbout() {
-    hidePosts();
-    $("#actionTitle").text("À propos...");
-    $("#aboutContainer").show();
+  hidePosts();
+  $("#actionTitle").text("À propos...");
+  $("#aboutContainer").show();
 }
 function updateDropDownMenu() {
-    let DDMenu = $("#DDMenu");
-    let selectClass = selectedCategory === "" ? "fa-check" : "fa-fw";
-    DDMenu.empty();
-    DDMenu.append($(`
+  let DDMenu = $("#DDMenu");
+  let selectClass = selectedCategory === "" ? "fa-check" : "fa-fw";
+  DDMenu.empty();
+  DDMenu.append(
+    $(`
         <div class="dropdown-item menuItemLayout" id="allCatCmd">
             <i class="menuIcon fa ${selectClass} mx-2"></i> Toutes les catégories
         </div>
-        `));
-    DDMenu.append($(`<div class="dropdown-divider"></div>`));
-    categories.forEach(category => {
-        selectClass = selectedCategory === category ? "fa-check" : "fa-fw";
-        DDMenu.append($(`
+        `)
+  );
+  DDMenu.append($(`<div class="dropdown-divider"></div>`));
+  categories.forEach((category) => {
+    selectClass = selectedCategory === category ? "fa-check" : "fa-fw";
+    DDMenu.append(
+      $(`
             <div class="dropdown-item menuItemLayout category" id="allCatCmd">
                 <i class="menuIcon fa ${selectClass} mx-2"></i> ${category}
             </div>
-        `));
-    })
-    DDMenu.append($(`<div class="dropdown-divider"></div> `));
-    DDMenu.append($(`
+        `)
+    );
+  });
+  DDMenu.append($(`<div class="dropdown-divider"></div> `));
+  DDMenu.append(
+    $(`
         <div class="dropdown-item menuItemLayout" id="aboutCmd">
             <i class="menuIcon fa fa-info-circle mx-2"></i> À propos...
         </div>
-        `));
-    $('#aboutCmd').on("click", function () {
-        renderAbout();
-    });
-    $('#allCatCmd').on("click", function () {
-        showPosts();
-        selectedCategory = "";
-        updateDropDownMenu();
-        pageManager.reset();
-    });
-    $('.category').on("click", function () {
-        showPosts();
-        selectedCategory = $(this).text().trim();
-        updateDropDownMenu();
-        pageManager.reset();
-    });
+        `)
+  );
+  $("#aboutCmd").on("click", function () {
+    renderAbout();
+  });
+  $("#allCatCmd").on("click", function () {
+    showPosts();
+    selectedCategory = "";
+    updateDropDownMenu();
+    pageManager.reset();
+  });
+  $(".category").on("click", function () {
+    showPosts();
+    selectedCategory = $(this).text().trim();
+    updateDropDownMenu();
+    pageManager.reset();
+  });
 }
 async function compileCategories() {
-    categories = [];
-    let response = await Posts_API.GetQuery("?fields=category&sort=category");
-    if (!Posts_API.error) {
-        let items = response.data;
-        if (items != null) {
-            items.forEach(item => {
-                if (!categories.includes(item.Category))
-                    categories.push(item.Category);
-            })
-            updateDropDownMenu(categories);
-        }
+  categories = [];
+  let response = await Posts_API.GetQuery("?fields=category&sort=category");
+  if (!Posts_API.error) {
+    let items = response.data;
+    if (items != null) {
+      items.forEach((item) => {
+        if (!categories.includes(item.Category)) categories.push(item.Category);
+      });
+      updateDropDownMenu(categories);
     }
+  }
 }
 async function renderPosts(queryString) {
-    let endOfData = false;
-    queryString += "&sort=category";
-    if (selectedCategory != "") queryString += "&category=" + selectedCategory;
+  let endOfData = false;
+  queryString += "&sort=category";
+  if (selectedCategory != "") queryString += "&category=" + selectedCategory;
+  
+  if (WordString != "") {
+    WordString = WordString.trim();
+
+    WordString = WordString.replace(/\s+/g, ",");
    // queryString += "&sort=keywords";
-   // if (WordString != "") queryString += "&keywords=" + WordString;
-    addWaitingGif();
-    let response = await Posts_API.Get(queryString);
-    if (!Posts_API.error) {
-        currentETag = response.ETag;
-        let Posts = response.data;
-        if (Posts.length > 0) {
-            Posts.forEach(Post => {
-                $("#itemsPanel").append(renderPost(Post));
-            });
-            $(".editCmd").off();
-            $(".editCmd").on("click", function () {
-                renderEditPostForm($(this).attr("editPostId"));
-            });
-            $(".deleteCmd").off();
-            $(".deleteCmd").on("click", function () {
-                renderDeletePostForm($(this).attr("deletePostId"));
-            });
-        } else
-            endOfData = true;
-    } else {
-        renderError(Posts_API.currentHttpError);
-    }
-    removeWaitingGif();
-    return endOfData;
+    queryString += "&keywords=" + WordString;
+    console.log(queryString);
+  }
+  addWaitingGif();
+  let response = await Posts_API.Get(queryString);
+  if (!Posts_API.error) {
+    currentETag = response.ETag;
+    let Posts = response.data;
+    if (Posts.length > 0) {
+      Posts.forEach((Post) => {
+        $("#itemsPanel").append(renderPost(Post));
+      });
+      $(".editCmd").off();
+      $(".editCmd").on("click", function () {
+        renderEditPostForm($(this).attr("editPostId"));
+      });
+      $(".deleteCmd").off();
+      $(".deleteCmd").on("click", function () {
+        renderDeletePostForm($(this).attr("deletePostId"));
+      });
+    } else endOfData = true;
+  } else {
+    renderError(Posts_API.currentHttpError);
+  }
+  removeWaitingGif();
+  return endOfData;
 }
 
 function renderError(message) {
-    hidePosts();
-    $("#actionTitle").text("Erreur du serveur...");
-    $("#errorContainer").show();
-    $("#errorContainer").append($(`<div>${message}</div>`));
+  hidePosts();
+  $("#actionTitle").text("Erreur du serveur...");
+  $("#errorContainer").show();
+  $("#errorContainer").append($(`<div>${message}</div>`));
 }
 function renderCreatePostForm() {
-    renderPostForm();
+  renderPostForm();
 }
 async function renderEditPostForm(id) {
-    addWaitingGif();
-    let response = await Posts_API.Get(id)
-    if (!Posts_API.error) {
-        let Post = response.data;
-        if (Post !== null)
-            renderPostForm(Post);
-        else
-            renderError("Post introuvable!");
-    } else {
-        renderError(Posts_API.currentHttpError);
-    }
-    removeWaitingGif();
+  addWaitingGif();
+  let response = await Posts_API.Get(id);
+  if (!Posts_API.error) {
+    let Post = response.data;
+    if (Post !== null) renderPostForm(Post);
+    else renderError("Post introuvable!");
+  } else {
+    renderError(Posts_API.currentHttpError);
+  }
+  removeWaitingGif();
 }
 async function renderDeletePostForm(id) {
-   
-    hidePosts();
-    $("#actionTitle").text("Retrait");
-    $('#postForm').show();
-    $('#postForm').empty();
-    let response = await Posts_API.Get(id)
-    if (!Posts_API.error) {
-        let Post = response.data;
-        const timestamp = Post.Creation;
+  hidePosts();
+  $("#actionTitle").text("Retrait");
+  $("#postForm").show();
+  $("#postForm").empty();
+  let response = await Posts_API.Get(id);
+  if (!Posts_API.error) {
+    let Post = response.data;
+    const timestamp = Post.Creation;
     const date = new Date(timestamp); // Convertit le timestamp en objet Date
 
     // Format de la date, par exemple : "YYYY-MM-DD"
-    const formattedDate = date.toISOString().split('T')[0];
-        if (Post !== null) {
-            $("#postForm").append(`
+    const formattedDate = date.toISOString().split("T")[0];
+    if (Post !== null) {
+      $("#postForm").append(`
         <div class="PostdeleteForm">
             <h4>Effacer le favori suivant?</h4>
             <br>
@@ -249,62 +265,58 @@ async function renderDeletePostForm(id) {
             <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
         </div>    
         `);
-            $('#deletePost').on("click", async function () {
-                await Posts_API.Delete(Post.Id);
-                if (!Posts_API.error) {
-                    showPosts();
-                    await pageManager.update(false);
-                    compileCategories();
-                }
-                else {
-                    console.log(Posts_API.currentHttpError)
-                    renderError("Une erreur est survenue!");
-                }
-            });
-            $('#cancel').on("click", function () {
-                showPosts();
-            });
-
+      $("#deletePost").on("click", async function () {
+        await Posts_API.Delete(Post.Id);
+        if (!Posts_API.error) {
+          showPosts();
+          await pageManager.update(false);
+          compileCategories();
         } else {
-            renderError("Post introuvable!");
+          console.log(Posts_API.currentHttpError);
+          renderError("Une erreur est survenue!");
         }
-    } else{
-        console.log("alloDelet")
-        renderError(Posts_API.currentHttpError);
+      });
+      $("#cancel").on("click", function () {
+        showPosts();
+      });
+    } else {
+      renderError("Post introuvable!");
     }
-       
+  } else {
+    console.log("alloDelet");
+    renderError(Posts_API.currentHttpError);
+  }
 }
 function getFormData($form) {
-    const removeTag = new RegExp("(<[a-zA-Z0-9]+>)|(</[a-zA-Z0-9]+>)", "g");
-    var jsonObject = {};
-    $.each($form.serializeArray(), (index, control) => {
-        jsonObject[control.name] = control.value.replace(removeTag, "");
-    });
-    return jsonObject;
+  const removeTag = new RegExp("(<[a-zA-Z0-9]+>)|(</[a-zA-Z0-9]+>)", "g");
+  var jsonObject = {};
+  $.each($form.serializeArray(), (index, control) => {
+    jsonObject[control.name] = control.value.replace(removeTag, "");
+  });
+  return jsonObject;
 }
 function newPost() {
-    Post = {};
-    Post.Id = 0;
-    Post.Title = "";
-    Post.Text = "";
-    Post.Category = "";
-    Post.Creation = new Date();
-    return Post;
+  Post = {};
+  Post.Id = 0;
+  Post.Title = "";
+  Post.Text = "";
+  Post.Category = "";
+  Post.Creation = new Date();
+  return Post;
 }
 function renderPostForm(Post = null) {
-    hidePosts();
-    let create = Post == null;
- 
-    if (create){
-        Post = newPost();
-    }
+  hidePosts();
+  let create = Post == null;
 
-       
-    $("#actionTitle").text(create ? "Création" : "Modification");
-    
-    $("#postForm").show();
-    $("#postForm").empty();
-    $("#postForm").append(`
+  if (create) {
+    Post = newPost();
+  }
+
+  $("#actionTitle").text(create ? "Création" : "Modification");
+
+  $("#postForm").show();
+  $("#postForm").empty();
+  $("#postForm").append(`
         <form class="form" id="PostForm">
             <br>
             <input type="hidden" name="Id" value="${Post.Id}"/>
@@ -353,43 +365,42 @@ function renderPostForm(Post = null) {
             <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
         </form>
     `);
-    initImageUploaders();
-    initFormValidation();
-   
-    $('#PostForm').on("submit", async function (event) {
-        event.preventDefault();
-        let Post = getFormData($("#PostForm"));
-        Post = await Posts_API.Save(Post, create);
-        if (!Posts_API.error) {
-            showPosts();
-            await pageManager.update(false);
-            compileCategories();
-            pageManager.scrollToElem(Post.Id);
-        }
-        else
-            renderError("Une erreur est survenue!");
-    });
-    $('#cancel').on("click", function () {
-        showPosts();
-    });
+  initImageUploaders();
+  initFormValidation();
+
+  $("#PostForm").on("submit", async function (event) {
+    event.preventDefault();
+    let Post = getFormData($("#PostForm"));
+    Post = await Posts_API.Save(Post, create);
+    if (!Posts_API.error) {
+      showPosts();
+      await pageManager.update(false);
+      compileCategories();
+      pageManager.scrollToElem(Post.Id);
+    } else renderError("Une erreur est survenue!");
+  });
+  $("#cancel").on("click", function () {
+    showPosts();
+  });
 }
 function makeFavicon(url, big = false) {
-    // Utiliser l'API de google pour extraire le favicon du site pointé par url
-    // retourne un élément div comportant le favicon en tant qu'image de fond
-    ///////////////////////////////////////////////////////////////////////////
-    if (url.slice(-1) != "/") url += "/";
-    let faviconClass = "favicon";
-    if (big) faviconClass = "big-favicon";
-    url = "http://www.google.com/s2/favicons?sz=64&domain=" + url;
-    return `<div class="${faviconClass}" style="background-image: url('${url}');"></div>`;
+  // Utiliser l'API de google pour extraire le favicon du site pointé par url
+  // retourne un élément div comportant le favicon en tant qu'image de fond
+  ///////////////////////////////////////////////////////////////////////////
+  if (url.slice(-1) != "/") url += "/";
+  let faviconClass = "favicon";
+  if (big) faviconClass = "big-favicon";
+  url = "http://www.google.com/s2/favicons?sz=64&domain=" + url;
+  return `<div class="${faviconClass}" style="background-image: url('${url}');"></div>`;
 }
 function renderPost(Post) {
-    const timestamp = Post.Creation;
-    const date = new Date(timestamp); // Convertit le timestamp en objet Date
+  const timestamp = Post.Creation;
+  console.log(timestamp);
+  const date = new Date(timestamp); // Convertit le timestamp en objet Date
 
-    // Format de la date, par exemple : "YYYY-MM-DD"
-    const formattedDate = date.toISOString().split('T')[0];
-    return $(`
+  // Format de la date, par exemple : "YYYY-MM-DD"
+  const formattedDate = date.toISOString().split("T")[0];
+  return $(`
      <div class="PostRow" id='${Post.Id}'>
         <div class="PostContainer noselect">
                             <div class="PostLayout">
@@ -409,7 +420,7 @@ function renderPost(Post) {
                                 </div>
                                 
                                 <!-- Champ de création -->
-                                <span class="PostCreation">Creation Date: <span data-creation="timestamp">${formattedDate}</span></span>
+                                <span class="PostCreation">Date de creation: <span data-creation="timestamp">${formattedDate}</span></span>
                             </div>
                             <div class="PostCommandPanel">
                                 <span class="editCmd cmdIcon fa fa-pencil" editPostId="${Post.Id}"
