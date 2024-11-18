@@ -159,7 +159,7 @@ async function compileCategories() {
 }
 async function renderPosts(queryString) {
   let endOfData = false;
-  queryString += "&sort=category";
+  queryString += "&sort=Creation,desc";
   if (selectedCategory != "") queryString += "&category=" + selectedCategory;
   
   if (WordString != "") {
