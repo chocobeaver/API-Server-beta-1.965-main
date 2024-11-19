@@ -440,9 +440,9 @@ function renderPost(Post) {
                                 </div>
                                 </div>
                                 <div class="Post">
-                                                <span class="PostTexte" id="${Post.Id}_T">${Post.Text}</span>
+                                                <span class="PostTexte " id="${Post.Id}_T">${Post.Text}</span>
                                 </div>
-                                <button class="show-more" id="toggleButton" editPostId="${Post.Id}"  onclick="toggleContent('${Post.id}')">montrer plus/moin</button>
+                                <button class="show-more" id="toggleButton" editPostId="${Post.Id}"  onclick="toggleContent('${Post.Id}')">montrer plus/moin</button>
                                 
                                 <!-- Champ de création -->
                                 <span class="PostCreation">Date de creation: <span data-creation="timestamp">${formattedDate}</span></span>
