@@ -397,7 +397,7 @@ function makeFavicon(url, big = false) {
   return `<div class="${faviconClass}" style="background-image: url('${url}');"></div>`;
 }
 function toggleContent(id) {
-    const hiddenContent = document.getElementById(id+"_T");
+    const postText = document.getElementById(id+"_T");
     console.log("all");
     console.log(id);
     if (postText.classList.contains('expanded')) {
@@ -423,6 +423,7 @@ function renderPost(Post) {
 
   // Format de la date, par exemple : "YYYY-MM-DD"
   const formattedDate = date.toISOString().split("T")[0];
+  
   return $(`
      <div class="PostRow" id='${Post.Id}'>
         <div class="PostContainer noselect">
