@@ -408,11 +408,11 @@ function toggleContent(id) {
 
 
     if (hiddenContent.style === 'none' || hiddenContent.style.display === '') {
-        hiddenContent.style.display = 'extended'; // Show the content
-        button.textContent = 'Show Less'; // Change button text
+        hiddenContent.style.display = 'extended'; 
+        button.textContent = 'Show Less';
     } else {
-        hiddenContent.style.display = 'none'; // Hide the content
-        button.textContent = 'Show More'; // Reset button text
+        hiddenContent.style.display = 'none';
+        button.textContent = 'Show More';
     }
     }
 function renderPost(Post) {

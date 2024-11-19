@@ -45,8 +45,8 @@
     max-width: 90%;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: normal;  /* Allow title to wrap */
-    word-break: break-word; /* Break long words if necessary */
+    white-space: normal;  
+    word-break: break-word;
 }
 .Post-Text {
     display: block;
