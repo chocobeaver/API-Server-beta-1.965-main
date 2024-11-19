@@ -234,35 +234,34 @@ async function renderDeletePostForm(id) {
     const formattedDate = date.toISOString().split("T")[0];
     if (Post !== null) {
       $("#postForm").append(`
-        <div class="PostdeleteForm">
-            <h4>Effacer le favori suivant?</h4>
-            <br>
-            <div class="PostRow" id=${Post.Id}">
-                <div class="PostContainer noselect">
-                    <div class="PostLayout">
+     <div class="PostRow" id='${Post.Id}'>
+        <div class="PostContainer noselect">
+                            <div class="PostLayout">
                                 <span class="PostCategory">${Post.Category}</span>
                                 <div class="Post">
-                                    <p>---</p>
-                                    <!-- Lien avec titre du post -->
-                                    <!-- <a href="" target="_blank" class="PostLink">sample</a> -->
                                     <span class="PostTitle">${Post.Title}</span>
                                 </div>
-                                <!-- Champ d'image -->
-                                <div class="PostImage">
-                                    <img class="Post-image" src=${Post.Image} alt="asa"/>
+                                <div class="Post">
+                                <div class="imgWrap">
+                                    <div class="PostImage">
+                                        <a href="${Post.Image}" target="blank"><img class="Post-image" src=${Post.Image} alt="asa"/></a>
+                                    </div>
                                 </div>
-                                <p class="PostText">${Post.Text}
-                                </p>
-                                
+                                </div>
+                                <div class="Post">
+                                                <span class="PostTexte " id="${Post.Id}_T">${Post.Text}</span>
+                                </div>
                                 <!-- Champ de création -->
-                                <span class="PostCreation">Creation Date: <span data-creation="timestamp">${formattedDate}</span></span>
+                                <span class="PostCreation">Date de creation: <span data-creation="timestamp">${formattedDate}</span></span>
                             </div>
-                    <div class="PostCommandPanel">
-                        <span class="editCmd cmdIcon fa fa-pencil" editPostId="${Post.Id}" title="Modifier ${Post.Title}"></span>
-                        <span class="deleteCmd cmdIcon fa fa-trash" deletePostId="${Post.Id}" title="Effacer ${Post.Title}"></span>
-                    </div>
-                </div>
-            </div>   
+                            <div class="PostCommandPanel">
+                                <span class="editCmd cmdIcon fa fa-pencil" editPostId="${Post.Id}"
+                                    title="Modifier ${Post.Title}"></span>
+                                <span class="deleteCmd cmdIcon fa fa-trash" deletePostId="${Post.Id}"
+                                    title="Effacer ${Post.Title}"></span>
+                            </div>
+                        </div>
+    </div>   
             <br>
             <input type="button" value="Effacer" id="deletePost" class="btn btn-primary">
             <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
@@ -344,17 +343,16 @@ function renderPostForm(Post = null) {
                 InvalidMessage="Le titre comporte un caractère illégal"
                 value="${Post.Title}"
             />
-            <label for="Texte" class="form-label">Texte </label>
-            <input 
+            <label for="Texte" class="form-label">Texte</label>
+            <textarea 
                 class="form-control Alpha"
                 name="Text" 
                 id="Text" 
-                placeholder="allo entrer un texte"
+                placeholder="Contenue"
                 required
-                RequireMessage="Veuillez entrer un Texte"
-                InvalidMessage="Le Texte comporte un caractère illégal"
-                value="${Post.Text}"
-            />
+                data-require-message="Veuillez entrer un Texte"
+                data-invalid-message="Le Texte comporte un caractère illégal">${Post.Text}</textarea>
+
              <!-- nécessite le fichier javascript 'imageControl.js' -->
             <label class="form-label">Image </label>
             <div   class='imageUploader' 
@@ -404,15 +402,6 @@ function toggleContent(id) {
         postText.classList.remove('expanded');
     } else {
         postText.classList.add('expanded');
-    }
-
-
-    if (hiddenContent.style === 'none' || hiddenContent.style.display === '') {
-        hiddenContent.style.display = 'extended'; 
-        button.textContent = 'Show Less';
-    } else {
-        hiddenContent.style.display = 'none';
-        button.textContent = 'Show More';
     }
     }
 function renderPost(Post) {
