@@ -71,7 +71,10 @@ function showPosts() {
   $("#abort").hide();
   $("#postForm").hide();
   $("#aboutContainer").hide();
+  WordString = "";
+  document.getElementById("SearchBar").value = WordString;
   $("#ResearchBar").hide();
+
   $("#createPost").show();
   hold_Periodic_Refresh = false;
 }
@@ -162,7 +165,7 @@ async function renderPosts(queryString) {
   queryString += "&sort=Creation,desc";
   if (selectedCategory != "") queryString += "&category=" + selectedCategory;
   
-  if (WordString != "") {
+  if (WordString != "" && WordString !=null) {
     WordString = WordString.trim();
 
     WordString = WordString.replace(/\s+/g, ",");
