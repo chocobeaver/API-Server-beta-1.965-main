@@ -383,6 +383,25 @@ function makeFavicon(url, big = false) {
     url = "http://www.google.com/s2/favicons?sz=64&domain=" + url;
     return `<div class="${faviconClass}" style="background-image: url('${url}');"></div>`;
 }
+function toggleContent(id) {
+    const hiddenContent = document.getElementById(id+"_T");
+    console.log("all");
+    console.log(id);
+    if (postText.classList.contains('expanded')) {
+        postText.classList.remove('expanded');
+    } else {
+        postText.classList.add('expanded');
+    }
+
+
+    if (hiddenContent.style === 'none' || hiddenContent.style.display === '') {
+        hiddenContent.style.display = 'extended'; // Show the content
+        button.textContent = 'Show Less'; // Change button text
+    } else {
+        hiddenContent.style.display = 'none'; // Hide the content
+        button.textContent = 'Show More'; // Reset button text
+    }
+    }
 function renderPost(Post) {
     const timestamp = Post.Creation;
     const date = new Date(timestamp); // Convertit le timestamp en objet Date
@@ -405,8 +424,9 @@ function renderPost(Post) {
                                 </div>
                                 </div>
                                 <div class="Post">
-                                                <span class="PostTexte">${Post.Text}</span>
+                                                <span class="PostTexte" id="${Post.Id}_T">${Post.Text}</span>
                                 </div>
+                                <button class="show-more" id="toggleButton" editPostId="${Post.Id}"  onclick="toggleContent('${Post.id}')">montrer plus/moin</button>
                                 
                                 <!-- Champ de création -->
                                 <span class="PostCreation">Creation Date: <span data-creation="timestamp">${formattedDate}</span></span>

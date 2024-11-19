@@ -84,13 +84,14 @@
 }
 
 .show-more {
-    display: none;
+    /* display: none; */
+    background-color: #555;
     color: dodgerblue;
     cursor: pointer;
     text-decoration: underline;
 }
 
-.PostText.expanded {
+.PostTexte.expanded {
     -webkit-line-clamp: unset;
 }
 
